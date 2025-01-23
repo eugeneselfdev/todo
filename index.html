@@ -26,70 +26,34 @@
 <body>
     <nav aria-label="Main Navigation">
          <ul>
-            <li><button>+</button></li>
+            <li><button id="addTodoButton">+</button></li>
          </ul>
     </nav>
     <div class="container">
-        <main>
-            <article id="notesList" aria-labelledby="notesListHeading">
-                <h2 id="notesListHeading">Your Notes</h2>
-                <p>Some shord description of this note</p>
-                <div>
-                    <span>Created: 21-01-2025</span>
-                </div>
-            </article>
-            <article id="notesList" aria-labelledby="notesListHeading">
-                <h2 id="notesListHeading">Your Notes</h2>
-                <p>Some shord description of this note</p>
-                <div>
-                    <span>Created: 21-01-2025</span>
-                </div>
-            </article>
-            <article id="notesList" aria-labelledby="notesListHeading">
-                <h2 id="notesListHeading">Your Notes</h2>
-                <p>Some shord description of this note</p>
-                <div>
-                    <span>Created: 21-01-2025</span>
-                </div>
-            </article>
-            <article id="notesList" aria-labelledby="notesListHeading">
-                <h2 id="notesListHeading">Your Notes</h2>
-                <p>Some shord description of this note</p>
-                <div>
-                    <span>Created: 21-01-2025</span>
-                </div>
-            </article>
-            <article id="notesList" aria-labelledby="notesListHeading">
-                <h2 id="notesListHeading">Your Notes</h2>
-                <p>Some shord description of this note</p>
-                <div>
-                    <span>Created: 21-01-2025</span>
-                </div>
-            </article>
-            <article id="notesList" aria-labelledby="notesListHeading">
-                <h2 id="notesListHeading">Your Notes</h2>
-                <p>Some shord description of this note</p>
-                <div>
-                    <span>Created: 21-01-2025</span>
-                </div>
-            </article>
-            <article id="notesList" aria-labelledby="notesListHeading">
-                <h2 id="notesListHeading">Your Notes</h2>
-                <p>Some shord description of this note</p>
-                <div>
-                    <span>Created: 21-01-2025</span>
-                </div>
-            </article>
-            <article id="notesList" aria-labelledby="notesListHeading">
-                <h2 id="notesListHeading">Your Notes</h2>
-                <p>Some shord description of this note</p>
-                <div>
-                    <span>Created: 21-01-2025</span>
-                </div>
-            </article>
-            
-        </main>
+        <div class="grid">
+            <aside>
+                <h2 id="notesListHeading">Navigation</h2>
+            </aside>
+            <main  id="notesList">
+                <!-- Notes will be listed here -->
+            </main>
+        </div>
     </div>
+
+    <!-- Modal for adding a new note -->
+    <div id="noteModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="noteForm">
+                <label for="noteTitle">Title:</label>
+                <input type="text" id="noteTitle" name="noteTitle" required>
+                <label for="noteContent">Content:</label>
+                <textarea id="noteContent" name="noteContent" required></textarea>
+                <button type="submit">Add Note</button>
+            </form>
+        </div>
+    </div>
+
     <script src="public/js/main.js"></script>
 </body>
 </html>
