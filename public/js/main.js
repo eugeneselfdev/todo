@@ -1,17 +1,25 @@
-let db
+// Initialize the database
+let db;
 
-const request = indexedDB.open('myDatabase', 1, function(upgradeDb) {
-  db = upgradeDb
-  db.createObjectStore('store')
-})
+// Open or create database if it doesn't exist
+const request = indexedDB.open('NotesDB', 1);
 
-request.onsuccess = function() {
-  db = request.result
-}
+// Triggered when the database is created or its version is updated
+request.onupgradeneeded = (event) => {
+    // Save a reference to the database 
+    db = event.target.result;
+    // Create an object store named notes with auto-incrementing key
+    const objectStore = db.createObjectStore('notes', { keyPath: "id", autoIncrement: true });
+    // Create an index on the 'title' property
+    objectStore.createIndex('title', 'title', { unique: false });
+};
 
-request.onerror = function() {
-  console.log('Error')
-}
+// Triggered when the database is opened successfully
+request.onsuccess = (event) => {
+    db = event.target.result;
+};
 
-
-
+// Triggered when an error occurs while accessing the database
+request.onerror = (event) => {
+    console.error('Database error:', event.target.error);
+};
