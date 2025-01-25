@@ -15,7 +15,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="http://yourwebsite.com">
     <meta property="og:image" content="http://yourwebsite.com/public/images/og-image.jpg">
-
+    
     <!-- Twitter Card meta tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="ToDo App - Manage Your Tasks Efficiently">
@@ -26,7 +26,7 @@
 <body>
     <nav aria-label="Main Navigation">
          <ul>
-            <li><button id="addTodoButton">+</button></li>
+            <li><button id="addTodoButton"><i class="material-icons">add</i></button></li>
          </ul>
     </nav>
     <div class="container">
@@ -38,20 +38,39 @@
                 <!-- Notes will be listed here -->
             </main>
         </div>
-    </div>
-
-    <!-- Modal for adding a new note -->
-    <div id="noteModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <form id="noteForm">
-                <label for="noteTitle">Title:</label>
-                <input type="text" id="noteTitle" name="noteTitle" required>
-                <label for="noteContent">Content:</label>
-                <textarea id="noteContent" name="noteContent" required></textarea>
-                <button type="submit">Add Note</button>
-            </form>
+        
+        <!-- Modal for adding a new note -->
+        <div id="noteModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form id="noteForm">
+                    <label for="noteTitle">Title:</label>
+                    <input type="text" id="noteTitle" name="noteTitle" required>
+                    <label for="noteContent">Content:</label>
+                    <textarea id="noteContent" name="noteContent" required></textarea>
+                    <button type="submit">Add Note</button>
+                </form>
+            </div>
         </div>
+
+        <!-- Modal for editing a todo -->
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeEditModal()">&times;</span>
+                <form id="editForm">
+                    <input type="hidden" id="todoId">
+                    <label for="todoTitle">Title:</label>
+                    <input type="text" id="todoTitle" required>
+                    <label for="todoContent">Content:</label>
+                    <textarea id="todoContent" required></textarea>
+                    <!-- <label for="todoDate">Date:</label> -->
+                    <input type="hidden" id="todoDate" required>
+                    <button type="button" onclick="saveTodo()">Save</button>
+                    <button type="button" onclick="closeEditModal()">Cancel</button>
+                </form>
+            </div>
+        </div>
+        
     </div>
 
     <script src="public/js/main.js"></script>

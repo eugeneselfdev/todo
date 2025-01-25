@@ -79,12 +79,19 @@ function displayTodos() {
             const noteElement = document.createElement('article');
             // Set the inner HTML of the note element
             noteElement.innerHTML = `
+                <i class="material-icons icon-bookmark">bookmark</i>
                 <h3>${note.title}</h3>
                 <p>${note.content}</p>
                 <div class="todo-footer">
                     <span>Created: <small>${note.date}</small></span>
-                    <button onclick="deleteNote(${note.id})">Delete</button>
-                </div>
+                    <span class="dropdown">
+                        <i class="material-icons icon-more" onclick="toggleDropdown(${note.id})">more_vert</i>
+                        <div id="dropdown-${note.id}" class="dropdown-content" id="dropdown-content">
+                            <a href="#" onclick="editTodo(${note.id})"><i class="material-icons icon-edit">edit</i> Edit</a>
+                            <a href="#" onclick="deleteTodo(${note.id})"><i class="material-icons icon-delete">delete</i> Delete</a>
+                        </div>
+                    </span>
+                </div>            
             `;
             // Append the note element to the notes list
             notesList.appendChild(noteElement);
@@ -98,8 +105,15 @@ function displayTodos() {
     };
 }
 
+// Function to toggle the dropdown menu visibility
+function toggleDropdown(id) {
+    const dropdown = document.getElementById(`dropdown-${id}`);
+    dropdown.classList.toggle('show');
+}
+
 // Function to delete a note from the database
-function deleteNote(id) {
+function deleteTodo(id) {
+
     // Start a new transaction
     const transaction = db.transaction(['todos'], 'readwrite');
     // Get the object store
@@ -120,6 +134,67 @@ function deleteNote(id) {
         // Log error message
         console.error('Error deleting note:', event.target.error);
     };
+}
+
+// Function to edit a note
+function editTodo(id) {
+
+    // Retrieve the todo data from the database
+    const transaction = db.transaction(['todos'], 'readonly');
+    const objectStore = transaction.objectStore('todos');
+    const request = objectStore.get(id);
+
+    request.onsuccess = (event) => {
+        const todo = event.target.result;
+        if (todo) {
+            
+            // Populate the form with the todo data
+            document.getElementById('todoId').value = todo.id;
+            document.getElementById('todoTitle').value = todo.title;
+            document.getElementById('todoContent').value = todo.content;
+            document.getElementById('todoDate').value = todo.date;
+
+            // Show the edit modal
+            document.getElementById('editModal').style.display = 'block';
+        } else {
+            console.error('Todo not found');
+        }
+    };
+
+    request.onerror = (event) => {
+        console.error('Error retrieving todo:', event.target.error);
+    };
+}
+
+// Function to save the edited todo
+function saveTodo() {
+    const idN = document.getElementById('todoId').value;
+    const title = document.getElementById('todoTitle').value;
+    const content = document.getElementById('todoContent').value;
+    const date = document.getElementById('todoDate').value;
+
+    id = Number(idN);
+
+    const transaction = db.transaction(['todos'], 'readwrite');
+    const objectStore = transaction.objectStore('todos');
+    const request = objectStore.put({ title, content, date, id });
+
+    request.onsuccess = () => {
+        console.log('Todo updated successfully');
+        // Hide the edit modal
+        document.getElementById('editModal').style.display = 'none';
+        // Refresh the todos list
+        displayTodos();
+    };
+
+    request.onerror = (event) => {
+        console.error('Error updating todo:', event.target.error);
+    };
+}
+
+// Function to close the edit modal
+function closeEditModal() {
+    document.getElementById('editModal').style.display = 'none';
 }
 
 // Add event listener to the note form
