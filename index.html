@@ -46,8 +46,28 @@
                 <form id="noteForm">
                     <label for="noteTitle">Title:</label>
                     <input type="text" id="noteTitle" name="noteTitle" required>
-                    <label for="noteContent">Content:</label>
+                    <label for="noteContent">Description:</label>
                     <textarea id="noteContent" name="noteContent" required></textarea>
+                    <label for="fruits">Priority:</label>
+                    <fieldset>
+                        <div>
+                          <input type="radio" id="high" name="priority" value="red" checked/>
+                          <label for="high">High</label>
+                          <i class="material-icons icon-bookmark" style="color: red;">bookmark</i>
+                        </div>
+                      
+                        <div>
+                          <input type="radio" id="medium" name="priority" value="orange"/>
+                          <label for="medium">Medium</label>
+                          <i class="material-icons icon-bookmark" style="color: orange;">bookmark</i>
+                        </div>
+                      
+                        <div>
+                          <input type="radio" id="low" name="priority" value="green"/>
+                          <label for="low">Low</label>
+                          <i class="material-icons icon-bookmark" style="color: green;">bookmark</i>
+                        </div>
+                      </fieldset>
                     <button type="submit">Add Note</button>
                 </form>
             </div>

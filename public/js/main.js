@@ -32,14 +32,14 @@ function initDatabase() {
 }
 
 // Function to add a note to the database
-function addTodo(title, content) {
+function addTodo(title, content, priority) {
     // Start a new transaction
     const transaction = db.transaction(['todos'], 'readwrite');
     // Get the object store
     const objectStore = transaction.objectStore('todos');
     // Add the note to the object store
     let date = new Date().toLocaleString();
-    const request = objectStore.add({ title, content, date });
+    const request = objectStore.add({ title, content, priority, date });
 
     // Triggered when the note is added successfully
     request.onsuccess = () => {
@@ -79,7 +79,7 @@ function displayTodos() {
             const noteElement = document.createElement('article');
             // Set the inner HTML of the note element
             noteElement.innerHTML = `
-                <i class="material-icons icon-bookmark">bookmark</i>
+                <i class="material-icons icon-bookmark" style="color:${note.priority}">bookmark</i>
                 <h3>${note.title}</h3>
                 <p>${note.content}</p>
                 <div class="todo-footer">
@@ -197,6 +197,11 @@ function closeEditModal() {
     document.getElementById('editModal').style.display = 'none';
 }
 
+// const selectPriop = document.get('prior')
+// .addEventListener('click', () => {
+
+// })
+
 // Add event listener to the note form
 document.getElementById('noteForm').addEventListener('submit', (event) => {
     // Prevent the default form submission behavior
@@ -206,7 +211,10 @@ document.getElementById('noteForm').addEventListener('submit', (event) => {
     // Get the content from the form
     const content = document.getElementById('noteContent').value;
     // Add the note to the database
-    addTodo(title, content);
+
+    const priority = document.querySelector('input[name="priority"]:checked').value;
+
+    addTodo(title, content, priority);
     // Reset the form
     document.getElementById('noteForm').reset();
     // Close the modal

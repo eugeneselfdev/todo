@@ -177,8 +177,19 @@ aside{
     cursor: pointer;
 }
 
-.icon-bookmark{
-    color: rgb(255, 0, 0);
+fieldset{
+    display: flex;
+    flex-flow: row;
+    border: none;
+    margin-bottom: 10px;
+}
+fieldset div{
+    display: flex;
+    margin-right: 20px;
+    gap: 5px;
+}
+fieldset div label{
+    cursor: pointer;
 }
 
 .dropdown {
