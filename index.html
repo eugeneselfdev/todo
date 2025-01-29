@@ -83,8 +83,27 @@
                     <input type="text" id="todoTitle" required>
                     <label for="todoContent">Content:</label>
                     <textarea id="todoContent" required></textarea>
-                    <!-- <label for="todoDate">Date:</label> -->
                     <input type="hidden" id="todoDate" required>
+                    <label for="fruits">Priority:</label>
+                    <fieldset>
+                        <div>
+                          <input type="radio" id="editHigh" name="editPriority" value="red"/>
+                          <label for="editHigh">High</label>
+                          <i class="material-icons icon-bookmark" style="color: red;">bookmark</i>
+                        </div>
+                      
+                        <div>
+                          <input type="radio" id="ediMedium" name="editPriority" value="orange"/>
+                          <label for="ediMedium">Medium</label>
+                          <i class="material-icons icon-bookmark" style="color: orange;">bookmark</i>
+                        </div>
+                      
+                        <div>
+                          <input type="radio" id="editLow" name="editPriority" value="green"/>
+                          <label for="editLow">Low</label>
+                          <i class="material-icons icon-bookmark" style="color: green;">bookmark</i>
+                        </div>
+                      </fieldset>
                     <button type="button" onclick="saveTodo()">Save</button>
                     <button type="button" onclick="closeEditModal()">Cancel</button>
                 </form>

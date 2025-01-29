@@ -154,6 +154,11 @@ function editTodo(id) {
             document.getElementById('todoContent').value = todo.content;
             document.getElementById('todoDate').value = todo.date;
 
+            const priority = document.querySelectorAll('input[name="editPriority"]');
+            priority.forEach(element => {
+                if(element.value == todo.priority) element.setAttribute("checked", "");
+            });
+            
             // Show the edit modal
             document.getElementById('editModal').style.display = 'block';
         } else {
@@ -172,12 +177,13 @@ function saveTodo() {
     const title = document.getElementById('todoTitle').value;
     const content = document.getElementById('todoContent').value;
     const date = document.getElementById('todoDate').value;
+    const priority = document.querySelector('input[name="editPriority"]:checked').value;
 
     id = Number(idN);
 
     const transaction = db.transaction(['todos'], 'readwrite');
     const objectStore = transaction.objectStore('todos');
-    const request = objectStore.put({ title, content, date, id });
+    const request = objectStore.put({ title, content, priority, date, id });
 
     request.onsuccess = () => {
         console.log('Todo updated successfully');
@@ -196,11 +202,6 @@ function saveTodo() {
 function closeEditModal() {
     document.getElementById('editModal').style.display = 'none';
 }
-
-// const selectPriop = document.get('prior')
-// .addEventListener('click', () => {
-
-// })
 
 // Add event listener to the note form
 document.getElementById('noteForm').addEventListener('submit', (event) => {
